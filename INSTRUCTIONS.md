@@ -4,11 +4,14 @@ Thank you for taking the time to go through the first technical interview. The n
 The goal of this exercise is to implement a simple board game where the user will be able to play and find a secret.
 ## Expectations
 [x]- A completed webapp, where we can visit the URL and play the mastermind game
+
 [ ]- Design​: doesn't have to be amazing, just playable; even ascii art is fine! (See some ui
 examples below).
+
 [x]- Code​: We’d like to see your understanding of React + Redux/Mobx or another state
 management library, and how you organize components and/or styles. Bonus points if
 we can refresh the browser and keep playing the same game.
+
 [x]- README.md​: Describe how the webapp should be run locally after cloning the repo.
 Hopefully this is fun; don't over polish it – it's a short time frame – but feel free to wow us as well.
 
