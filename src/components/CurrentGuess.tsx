@@ -37,6 +37,12 @@ const CurrentGuess: React.FC<Props> = (props: Props) => {
 
   return (
     <section id="currentGuess">
+      <h3>Create your color sequence guess</h3>
+      <p>
+        Click items from the color options to the right to add them to your
+        guess
+      </p>
+
       {currentGuess &&
         currentGuess.map((color: Color) => (
           <ColorPeg
@@ -45,7 +51,6 @@ const CurrentGuess: React.FC<Props> = (props: Props) => {
             handleClick={handleSubmit}
           />
         ))}
-
       <button onClick={(): void => handleSubmit(currentGuess)}>
         Submit Guess
       </button>

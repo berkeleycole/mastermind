@@ -20,7 +20,7 @@ const PastGuesses: React.FC<Props> = (props: Props) => {
     <section id="pastGuesses">
       {pastGuesses.map((guess: Color[], index: number) => (
         <div key={Math.random()}>
-          <p>Guess #{index}</p>
+          <p>Guess #{index + 1}</p>
           {guess.map((color: Color) => (
             <ColorPeg
               key={Math.random()}

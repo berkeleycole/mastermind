@@ -1,7 +1,8 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-case-declarations */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { EMPTY_COLORS, Color, GameState, ALL_COLORS } from "../common/types";
+import { Color, GameState, ALL_COLORS, Guess } from "../common/types";
 
 export const initialState: GameState = {
   target: [],
@@ -10,8 +11,21 @@ export const initialState: GameState = {
   errors: []
 };
 
-const createTargetColor = (): Color => {
-  return ALL_COLORS[Math.floor(Math.random() * 6)];
+const createTarget = (): Guess => {
+  const targetArray = [];
+  for (let i = 0; i < 4; i++) {
+    targetArray.push(ALL_COLORS[Math.floor(Math.random() * 6)]);
+  }
+  return targetArray;
+};
+
+const compareGuesses = (a: Guess, b: Guess) => {
+  for (let i = 0; i < 4; i++) {
+    if (a[i] !== b[i]) {
+      return false;
+    }
+  }
+  return true;
 };
 
 const gameSlice = createSlice({
@@ -19,12 +33,7 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     newGame(state: GameState) {
-      state.target = [
-        createTargetColor(),
-        createTargetColor(),
-        createTargetColor(),
-        createTargetColor()
-      ];
+      state.target = createTarget();
       state.currentGuess = [];
       state.pastGuesses = [];
       state.errors = [];
@@ -41,9 +50,11 @@ const gameSlice = createSlice({
       console.log(state);
       const { pastGuesses, currentGuess, target } = state;
       state.errors = [];
-      console.log(currentGuess === target, currentGuess, target);
-      if (currentGuess === target) {
-        console.log("win");
+
+      if (compareGuesses(currentGuess, target)) {
+        alert("You win!!");
+      } else if (pastGuesses.length + 1 === 10) {
+        alert("You lose!!");
       } else {
         pastGuesses.push(currentGuess.splice(0, currentGuess.length));
       }
