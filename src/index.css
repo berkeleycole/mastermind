@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+main {
+  width: 100vw;
+  height: 100vh;
+}
+
+#sideBar {
+  grid-area: sideBar;
+}
+
+#currentGuess {
+  grid-area: currentGuess;
+  display: flex;
+}
+
+#pastGuesses {
+  grid-area: pastGuesses;
+  display: flex;
+}
+
+#colorOptions {
+  grid-area: colorOptions;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 20vw 70vw 10vw;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "sideBar currentGuess colorOptions"
+    "sideBar pastGuesses colorOptions";
+}
