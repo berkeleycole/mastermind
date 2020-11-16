@@ -8,13 +8,14 @@ export const initialState: GameState = {
   target: [],
   currentGuess: [],
   pastGuesses: [],
-  errors: []
+  errors: [],
+  activeGuessIndex: 0
 };
 
 const createTarget = (): Guess => {
   const targetArray = [];
   for (let i = 0; i < 4; i++) {
-    targetArray.push(ALL_COLORS[Math.floor(Math.random() * 6)]);
+    targetArray.push(ALL_COLORS[Math.floor(Math.random() * 7)]);
   }
   return targetArray;
 };
@@ -34,17 +35,23 @@ const gameSlice = createSlice({
   reducers: {
     newGame(state: GameState) {
       state.target = createTarget();
-      state.currentGuess = [];
+      state.currentGuess = [Color.EMPTY, Color.EMPTY, Color.EMPTY, Color.EMPTY];
       state.pastGuesses = [];
       state.errors = [];
     },
+    setActiveGuessIndex(
+      state: GameState,
+      { payload }: PayloadAction<number>
+    ): void {
+      console.log("Running setActive reducer :::", payload);
+      state.activeGuessIndex = payload;
+    },
     selectColor(
-      { currentGuess }: GameState,
+      { currentGuess, activeGuessIndex }: GameState,
       { payload }: PayloadAction<Color>
     ): void {
-      if (currentGuess.length < 4) {
-        currentGuess.push(payload);
-      }
+      console.log("Running selectColor reducer :::", payload);
+      currentGuess[activeGuessIndex] = payload;
     },
     submitGuess(state: GameState): void {
       console.log(state);
@@ -62,6 +69,11 @@ const gameSlice = createSlice({
   }
 });
 
-export const { selectColor, submitGuess, newGame } = gameSlice.actions;
+export const {
+  selectColor,
+  submitGuess,
+  newGame,
+  setActiveGuessIndex
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

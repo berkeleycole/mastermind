@@ -1,8 +1,8 @@
 /* eslint-disable react/button-has-type */
 import React from "react";
 import { connect } from "react-redux";
-import { submitGuess, newGame } from "../slices/gameSlice";
-import ColorPeg from "./ColorPeg";
+import { submitGuess, newGame, setActiveGuessIndex } from "../slices/gameSlice";
+import ColorPeg from "./GuessOption";
 import { Color, State, Guess } from "../common/types";
 
 interface Props {
@@ -10,22 +10,33 @@ interface Props {
   handleSubmit: Function;
   target: Guess;
   handleStartNewGame: Function;
+  handleSetActive: Function;
+  activeIndex: number;
 }
 
 const mapPropsToDispatch = {
   handleSubmit: submitGuess,
-  handleStartNewGame: newGame
+  handleStartNewGame: newGame,
+  handleSetActive: setActiveGuessIndex
 };
 
 const mapStateToProps = (
   state: State
-): { currentGuess: Guess; target: Guess } => ({
+): { currentGuess: Guess; target: Guess; activeIndex: number } => ({
   currentGuess: state.game.currentGuess,
-  target: state.game.target
+  target: state.game.target,
+  activeIndex: state.game.activeGuessIndex
 });
 
 const CurrentGuess: React.FC<Props> = (props: Props) => {
-  const { handleSubmit, target, handleStartNewGame } = props;
+  const {
+    handleSubmit,
+    target,
+    handleStartNewGame,
+    handleSetActive,
+    activeIndex
+  } = props;
+
   let { currentGuess } = props;
   if (target.length === 0) {
     handleStartNewGame();
@@ -44,13 +55,18 @@ const CurrentGuess: React.FC<Props> = (props: Props) => {
       </p>
 
       {currentGuess &&
-        currentGuess.map((color: Color) => (
-          <ColorPeg
-            key={Math.random()}
-            color={color}
-            handleClick={handleSubmit}
-          />
-        ))}
+        currentGuess.map((color: Color, index: number) => {
+          return (
+            <ColorPeg
+              key={Math.random()}
+              color={color}
+              isActive={index === activeIndex}
+              handleClick={(): void => {
+                handleSetActive(index);
+              }}
+            />
+          );
+        })}
       <button onClick={(): void => handleSubmit(currentGuess)}>
         Submit Guess
       </button>

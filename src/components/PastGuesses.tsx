@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React from "react";
 import { connect } from "react-redux";
-import ColorPeg from "./ColorPeg";
+import ColorPeg from "./ColorOption";
 import { Color, State, Guess } from "../common/types";
 import GuessFeedback from "./GuessFeedback";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { selectColor } from "../slices/gameSlice";
 import { Color, ALL_COLORS } from "../common/types";
-import ColorPeg from "./ColorPeg";
+import ColorPeg from "./ColorOption";
 
 interface Props {
   handleClick: Function;

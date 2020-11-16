@@ -10,6 +10,7 @@ export enum Color {
 }
 
 export const ALL_COLORS = [
+  Color.EMPTY,
   Color.BLUE,
   Color.GREEN,
   Color.RED,
@@ -32,6 +33,7 @@ export type GameState = {
   currentGuess: Guess;
   pastGuesses: Guess[];
   errors: string[];
+  activeGuessIndex: number;
 };
 
 export type State = {
